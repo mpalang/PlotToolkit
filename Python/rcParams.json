@@ -1,0 +1,21 @@
+{
+    "font.family": "sans-serif",
+    "font.sans-serif": "Arial",
+    "xtick.direction": "in",
+    "ytick.direction": "in",
+    "font.size": 40,
+    "legend.fontsize": 30,
+    "axes.titlesize": 30,
+    "axes.titlepad": 20,
+    "axes.labelpad": 60,
+    "lines.linewidth": 4,
+    "axes.linewidth": 4,
+    "xtick.major.size": 10,
+    "xtick.major.width": 4,
+    "xtick.minor.size": 5,
+    "xtick.minor.width": 2,
+    "ytick.major.size": 10,
+    "ytick.major.width": 4,
+    "ytick.minor.size": 5,
+    "ytick.minor.width": 2
+}
