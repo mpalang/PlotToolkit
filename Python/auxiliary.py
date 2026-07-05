@@ -29,20 +29,28 @@ def set_size(figsize,fig):
 
 def make_cmap(name='fancy',n_levels=40,zrange=(-1,1)):
     
+    if zrange[0]>zrange[1]:
+        zrange = (zrange[1],zrange[0])
+        print('Make sure first zrange value is lower than second. Numbers were swapped.')
+    
     if name=='fancy':
         levels = np.linspace(zrange[0],zrange[1],n_levels)
-        zero=np.argmax(levels>0)
-        levels=np.concatenate((levels[:zero],[0],levels[zero:]))
-        cmap_neg=[get_cmap('Blues')(n/zero) for n in range(n_levels-zero)]
-        cmap_pos=[get_cmap('Reds')(n/(n_levels-zero)) for n in range(n_levels-zero)]
-        cmap=cmap_neg[::-1]+[(1,1,1)]+ cmap_pos
-    
-    elif not name:
-        levels=20
-        levels = np.linspace(zrange[0],zrange[1],levels+1)
-        cmap=get_cmap('rainbow')
+        if zrange[0]<0 and zrange[1]>0:
+            zero=np.argmax(levels>0)
+            cmap_neg=[get_cmap('Blues')(n/zero) for n in range(zero)]
+            cmap_pos=[get_cmap('Reds')(n/(n_levels-zero)) for n in range(n_levels-zero)]
+            cmap=cmap_neg[::-1]+ cmap_pos
+            if not levels[zero-1] == 0:
+                levels = np.insert(levels,zero,0)
+                cmap.insert(zero,(1,1,1))
+            
+        elif zrange[0]<0:
+            cmap=[get_cmap('Blues')(n/n_levels) for n in range(n_levels)]
+        elif zrange[0]>0:
+            cmap=[get_cmap('Reds')(n/n_levels) for n in range(n_levels)]
+        
     else:
-        levels=20
+        levels=n_levels
         levels = np.linspace(zrange[0],zrange[1],levels+1)
         cmap=name
         
